@@ -1,4 +1,3 @@
-const { Socket } = require("dgram");
 const express = require("express");
 const http = require("http");
 const app = express();
@@ -17,8 +16,9 @@ app.get("/index", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("a user connected");
-  socket.on("disconnect", (socket) => {
-    console.log("user disconnected");
+  socket.on("chat message", (msg) => {
+    // console.log("message: " + msg);
+    io.emit("chat message", msg);
   });
 });
 
